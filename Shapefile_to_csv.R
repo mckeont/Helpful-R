@@ -1,11 +1,9 @@
 
-install.packages("rgdal")
-library(rgdal) 
+#Shapefile to csv
+library(rgdal)
 
-leadpoints <- readOGR(dsn = "C:/Users/Tom McKeon/Documents/TREES/leadpoints", layer = "Lead_Data_CEET_Aug21_2019")
+leadpoints <- readOGR(dsn = "C:/Users/path/Documents/TREES/leadpoints", layer = "Lead_Data_CEET")
 
 write.csv(leadpoints,
           file= "C:/Users/Tom McKeon/Documents/TREES/leadpoints.csv",
           row.names = FALSE)
-
-leadpoints

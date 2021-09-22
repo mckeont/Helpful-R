@@ -6,7 +6,7 @@ library(zoo)
 #read the data
 data <- read.csv("data.csv", header = TRUE)
 
-##Make sure date is a date
+## Ensure date field is saved as a date type
 data$date <- as.Date(data$date)
 
 ## Monthly means:
