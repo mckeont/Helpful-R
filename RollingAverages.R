@@ -37,5 +37,5 @@ together <- cbind(Baxter_roll,Queen_Lane_roll,Belmont_roll,Mix_roll)
 
 ## Write out a csv file. It doesn't include a date column. but the order should be jan-april 2013, feb - may 2013, march - june 2013, etc
 write.csv (together,
-           file = "C:/somewhere/rollingaverage_andrea.csv",
+           file = "C:/somewhere/rollingaverage.csv",
            row.names = FALSE)
