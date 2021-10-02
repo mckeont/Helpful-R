@@ -1,4 +1,4 @@
-
+library(stringr) 
 # Correcting ZIP codes to standard 5 digit format.
 
 # trim all the area codes (the last 4 digits)
