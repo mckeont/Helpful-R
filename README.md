@@ -1,2 +1,2 @@
 # Helpful-R
- Helpful R scripts. Hopefully helpful...
+ Snippets 
