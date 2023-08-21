@@ -1,2 +1,2 @@
 # Helpful-R
- Snippets Snipping Snips.
+ For common GIS conversions and calculations.
