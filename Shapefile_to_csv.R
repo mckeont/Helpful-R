@@ -2,9 +2,11 @@
 #Shapefile to csv
 library(rgdal)
 
-leadpoints <- readOGR(dsn = "path/leadpoints", layer = "Lead_Data_CEET")
+shapefile <- readOGR(dsn = "path/shapefilefolder", layer = "shapefile")
 
-write.csv(leadpoints,
-          file= "path/leadpoints.csv",
+write.csv(shapefile,
+          file= "path/shapefile.csv",
           row.names = FALSE)
+
+dataset <- read.csv("path/shapefile.csv", header = TRUE)
           
