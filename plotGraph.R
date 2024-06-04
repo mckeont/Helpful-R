@@ -151,3 +151,53 @@ ggplot(data_melted, aes(x=Group, y=ROI, fill=Score)) +
 # Save the plot to a file
 ggsave("styled_heatmap.png", width = 10, height = 6, units = "in")
 
+
+                   library(ComplexHeatmap)
+library(circlize)  # Dependency of ComplexHeatmap
+
+# Set seed for reproducibility
+set.seed(42)
+
+# Dummy data setup
+rois <- c("SPL", "IPL", "AL", "Left-Cerebellum-Cortex", "Right-Cerebellum-Cortex",
+          "Left-Cerebellum-White-Matter", "Right-Cerebellum-White-Matter",
+          "Vermis", "Left_CrusII", "Left_I_IV", "Left_IX", "Left_V",
+          "Left_VI", "Left_VIIb", "Left_VIIIa", "Left_VIIIb", "Left_X",
+          "Right_CrusI", "Right_CrusII", "Right_I_IV", "Right_IX", "Right_V",
+          "Right_VI", "Right_VIIb", "Right_VIIIa", "Right_VIIIb", "Right_X",
+          "Vermis_IX", "Vermis_VI", "Vermis_VII", "Vermis_VIII", "Vermis_X")
+
+# Random cognitive measures across multiple subjects
+measure_data <- matrix(rnorm(length(rois) * 10, mean = 50, sd = 10), ncol = length(rois), nrow = 10)
+rownames(measure_data) <- paste("Subject", 1:10)
+colnames(measure_data) <- rois
+
+# Simulate p-values for significance of each measure
+p_values_matrix <- matrix(runif(length(rois) * 10, 0, 0.1), ncol = length(rois), nrow = 10)
+p_values_matrix[p_values_matrix <= 0.05] <- 0.01  # Marking some entries as significant
+p_values_matrix[p_values_matrix > 0.05] <- 0.1  # Non-significant entries
+
+# Color scale
+color_palette <- colorRampPalette(c("blue", "white", "red"))(100)
+
+# Apply color scale based on normalized data values
+normalized_data <- (measure_data - min(measure_data)) / (max(measure_data) - min(measure_data))
+color_indices <- ceiling(normalized_data * 99) + 1  # Ensures index is between 1 and 100
+measure_colors <- matrix(color_palette[color_indices], nrow = 10, ncol = length(rois))
+
+# Adding border to highlight significance
+borders <- ifelse(p_values_matrix <= 0.05, "red", NA)  # Red borders for significant values
+
+# Create the heatmap
+Heatmap(measure_data,
+        col = color_palette,  # Use the color palette
+        name = "Cognitive Score",
+        border = borders,  # Apply conditional borders based on significance
+        column_names_side = "bottom",
+        row_names_gp = gpar(fontsize = 10),
+        column_names_gp = gpar(fontsize = 10, angle = 45),
+        heatmap_legend_param = list(title = "Score", at = c(min(measure_data), mean(measure_data), max(measure_data)), labels = c("Low", "Medium", "High")))
+
+
+
+
